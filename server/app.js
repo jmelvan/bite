@@ -29,12 +29,19 @@ if(!isProduction) {
 }
 
 //Configure Mongoose
-mongoose.connect('mongodb+srv://melvan:yrYSdJZUro6LFuvk@bite-m3yng.mongodb.net/test?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://melvan:yrYSdJZUro6LFuvk@bite-m3yng.mongodb.net/bite?retryWrites=true&w=majority');
 mongoose.set('debug', true);
+
+
+require('./models/users');
+require('./models/tokens');
+require('./models/orders');
+require('./config/passport');
+app.use(require('./routes'));
 
 //Error handlers & middlewares
 if(!isProduction) {
-  app.use((err, req, res) => {
+  app.use((req, res, err) => {
     res.status(err.status || 500);
 
     res.json({
@@ -46,7 +53,7 @@ if(!isProduction) {
   });
 }
 
-app.use((err, req, res) => {
+app.use((req, res, err) => {
   res.status(err.status || 500);
 
   res.json({
