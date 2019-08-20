@@ -107,26 +107,27 @@ router.get('/current', auth.required, (req, res, next) => {
     });
 });
 
-router.get('/client-orders/:token*?', auth.required, (req, res, next) => {
+router.get('/orders/:token*?', auth.required, (req, res, next) => {
   const {payload: {id}} = req;
-  req.params.token ?
-    UsedTokens.find({renter_id: id, token: req.params.token}, {'_id': 0,'food_list': 1, 'price': 1, 'token': 1, 'catering_id': 1, 'time': 1}, function(err, orders) {
-      res.json({orders: orders});
-    })
-  :
-    UsedTokens.find({renter_id: id}, {'_id': 0,'food_list': 1, 'price': 1, 'token': 1, 'catering_id': 1, 'time': 1}, function(err, orders) {
-      res.json({orders: orders});
-    })
-});
-
-router.get('/orders', auth.required, (req, res, next) => {
-  const {payload: {id}} = req;
-
-  Orders.find({catering_id: id}, function(err, orders) {
-    res.json({orders: orders});
-  });
+  Users.findOne({_id: id}, function(err, user){
+    if(user.role == "catering"){
+      Orders.find({catering_id: id}, {'_id': 0, 'catering_id': 0, 'renter_id': 0, '__v': 0}, function(err, orders) {
+        res.json({orders: orders});
+      });
+    } else if(user.role == "client") {
+      req.params.token ?
+        UsedTokens.find({renter_id: id, token: req.params.token}, {'_id': 0,'food_list': 1, 'price': 1, 'token': 1, 'catering_id': 1, 'time': 1}, function(err, orders) {
+          res.json({orders: orders});
+        })
+      :
+        UsedTokens.find({renter_id: id}, {'_id': 0,'food_list': 1, 'price': 1, 'token': 1, 'catering_id': 1, 'time': 1}, function(err, orders) {
+          res.json({orders: orders});
+        })
+    }
+  })
 });
 
 router.use('/tokens', require('./tokens'));
+router.use('/food', require('./food'));
 
 module.exports = router;
