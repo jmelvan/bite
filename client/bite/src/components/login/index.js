@@ -2,6 +2,7 @@ import React from 'react';
 import Cookies from 'universal-cookie';
 import history from '../../history';
 import axios from 'axios';
+import { Logo } from '../../resources/icons';
 import './style.scss';
 
 const cookies = new Cookies();
@@ -25,7 +26,7 @@ class Login extends React.Component {
   }
   
   componentDidMount(){
-    
+
   }
 
   inputFocus(input){
@@ -50,7 +51,7 @@ class Login extends React.Component {
         password: this.state.password
       }
     }).then((res) => {
-      cookies.set("Authorization", "Token "+res.data.token, {path: "/"})
+      cookies.set("_sT", res.data.token, {path: "/"});
     }).catch((err) => {
       if (err.response.data.errors.username){
         this.setState({
@@ -105,7 +106,7 @@ class Login extends React.Component {
         <div className="plate1-holder"></div>
         <div className="plate2-holder"></div>
         <div className="logo-holder">
-          <img src={require("../../resources/logo.svg")} />
+          <Logo class="logo login" />
           <img className="hamburger" src={require("../../resources/hamburger.svg")} />
         </div>
         <div className="form-wrapper">

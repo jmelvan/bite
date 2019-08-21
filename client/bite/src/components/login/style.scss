@@ -15,7 +15,7 @@ html, body{
   animation: slideIn 1s ease;
 
   @media screen and (max-width: 767px){
-    left: -50px;
+    left: -40px;
     animation: slideIn4 1s ease .1s both;
   }
 }
@@ -62,9 +62,11 @@ html, body{
   padding-top: 40px;
   padding-left: 60px;
   padding-right: 60px;
+  top: 0;
   width: calc(100% - 120px);
   display: flex;
   justify-content: space-between;
+
 
   .hamburger{
     display: none;
@@ -86,6 +88,22 @@ html, body{
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+
+.logo {
+  fill: #f37421;
+}
+
+.logo.join{
+  animation: logo .5s ease .75s both;
+  
+  @media screen and (max-width: 767px){
+    animation: logoJoin 1s ease .5s both;
+  }
+}
+
+.logo.login{
+  animation: logo .5s ease .75s both;
 }
 
 .form-wrapper{
@@ -288,12 +306,12 @@ html, body{
 
 @keyframes slideIn3 {
   0% {
-    transform: rotate(100deg);
+    transform: rotate(70deg);
     bottom: -250px;
   }
   100%  {
     transform: rotate(0deg);
-    bottom: -125px;
+    bottom: -175px;
   }
 }
 
@@ -310,22 +328,40 @@ html, body{
 
 @keyframes slideIn6 {
   0% {
-    transform: rotate(100deg);
-    top: -150px;
+    transform: rotate(50deg);
+    top: -170px;
   }
   100%  {
     transform: rotate(0deg);
-    top: -120px;
+    top: -150px;
   }
 }
 
 @keyframes slideIn5 {
   0% {
-    transform: rotate(60deg);
-    bottom: -250px;
+    transform: rotate(50deg);
+    bottom: -270px;
   }
   100%  {
     transform: rotate(0deg);
-    bottom: -200px;
+    bottom: -220px;
+  }
+}
+
+@keyframes logo {
+  0% {
+    fill: #f37421;
+  }
+  100% {
+    fill: #fff;
+  }
+}
+
+@keyframes logoJoin {
+  0% {
+    fill: #fff;
+  }
+  100% {
+    fill: #f37421;
   }
 }

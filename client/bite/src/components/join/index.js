@@ -2,6 +2,7 @@ import React from 'react';
 import Cookies from 'universal-cookie';
 import history from '../../history';
 import axios from 'axios';
+import { Logo } from '../../resources/icons';
 import '../login/style.scss';
 
 const cookies = new Cookies();
@@ -54,24 +55,35 @@ class Login extends React.Component {
   }
 
   signin(){
-    axios.post('http://on-time.cc:8000/api/users', {
-      user: {
-        email: this.state.email,
-        username: this.state.username,
-        password: this.state.password
-      }
-    }).then((res) => {
-
-    }).catch((err) => {
-      console.log(err.response.data.error);
+    if(this.state.username != "" && this.state.email != "" && this.state.password != ""){
+      axios.post('http://on-time.cc:8000/api/users', {
+        user: {
+          email: this.state.email,
+          username: this.state.username,
+          password: this.state.password,
+          role: this.state.role
+        }
+      }).then((res) => {
+        cookies.set("_sT", res.data.user.token, {path: "/"});
+        this.props.history.push("/"+this.state.role);
+      }).catch((err) => {
+        this.setState({
+          loginButton: err.response.data.error,
+          loginBG: "crimson"
+        });
+        setTimeout(() => {
+          this.setState({loginButton: "Sign up", loginBG: "#f37421"});
+        }, 1500);
+      });
+    } else {
       this.setState({
-        loginButton: err.response.data.error,
+        loginButton: "Please fill all fields",
         loginBG: "crimson"
       });
       setTimeout(() => {
-        this.setState({loginButton: "LOGIN", loginBG: "#f37421"});
+        this.setState({loginButton: "Sign up", loginBG: "#f37421"});
       }, 1500);
-    });
+    }
   }
 
   render(){
@@ -80,7 +92,7 @@ class Login extends React.Component {
         <div className="plate1-holder join"></div>
         <div className="plate2-holder join"></div>
         <div className="logo-holder">
-          <img src={require("../../resources/logo.svg")} />
+          <Logo class="logo join" />
           <img className="hamburger" src={require("../../resources/hamburger.svg")} />
         </div>
         <div className="form-wrapper">
