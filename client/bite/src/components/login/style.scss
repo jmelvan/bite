@@ -1,0 +1,252 @@
+html, body{
+  overflow: hidden;
+}
+
+.plate1-holder{
+  background: url("../../resources/plate1.png");
+  background-position: left;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 255px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -9;
+  animation: slideIn 1s ease;
+
+  @media screen and (max-width: 767px){
+    top: -70px;
+    left: -50px;
+    animation: slideIn4 1s ease .1s both;
+  }
+}
+
+.plate2-holder{
+  background: url("../../resources/plate2.png");
+  background-position: right;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 300px;
+  position: fixed;
+  bottom: -45px;
+  left: 0;
+  z-index: -9;
+  animation: slideIn2 1s ease;
+
+  @media screen and (max-width: 767px){
+    left: 130px;
+    animation: slideIn3 1s ease .1s both;
+  }
+}
+
+.login{
+  width: 100%;
+  height: 100%;
+}
+
+.logo-holder{
+  position: relative;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.login-options{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+
+  form{
+    width: 100%;
+    max-width: 500px;
+    padding-left: 30px;
+    padding-right: 30px;
+
+    .signin{
+      width: 100%;
+      text-align: center;
+      color: #8b959e;
+      font-size: 12px;
+      font-weight: 500;
+      margin-top: 20px;
+
+      span{
+        color: #f37421;
+        cursor: pointer;
+      }
+      span:hover{
+        text-decoration: underline;
+      }
+    }
+
+    .input-group{
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    label{
+      color: #8b959e;
+      font-weight: 500;
+      position: absolute;
+      transition: all .3s ease;
+    }
+    input[type=text], input[type=password]{
+      width: 100%;
+      height: 30px;
+      color: #425160;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      background: transparent;
+      -webkit-appearance: none;
+      border-radius: 0;
+      padding-left: 0;
+    }
+    input:focus, button:focus{
+      outline: none;
+    }
+
+    button{
+      width: 100%;
+      height: 44px;
+      box-shadow: 0 2px 7px 2px rgba(243, 116, 33, 0.4);
+      border-radius: 34px;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      margin-top: 45px;
+      transition: all .15s ease;
+    }
+    button:hover{
+      background-color: #ff6702;
+    }
+  }
+}
+
+.container {
+  display: block;
+  position: relative;
+  padding-left: 23px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #8b959e;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 12px;
+  width: 12px;
+  background-color: transparent;
+  border: 1px solid #8b959e;
+  border-radius: 8px;
+}
+
+.container:hover input ~ .checkmark {
+  background-color: rgb(246, 246, 246);
+}
+
+.container input:checked ~ .checkmark {
+  background-color: #f37421;
+  border: 1px solid #f37421;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.container .checkmark:after {
+  left: 5px;
+  top: 0px;
+  width: 3px;
+  height: 7px;
+  border: solid white;
+  border-width: 0 1.5px 1.5px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.forgot{
+  color: #f37421;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.forgot:hover{
+  text-decoration: underline;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: rotate(50deg);
+  }
+  100%  {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes slideIn2 {
+  0% {
+    transform: rotate(65deg);
+  }
+  100%  {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes slideIn3 {
+  0% {
+    transform: rotate(100deg);
+    bottom: -250px;
+  }
+  100%  {
+    transform: rotate(0deg);
+    bottom: -125px;
+  }
+}
+
+@keyframes slideIn4 {
+  0% {
+    transform: rotate(100deg);
+    top: -150px;
+  }
+  100%  {
+    transform: rotate(0deg);
+    top: -70px;
+  }
+}

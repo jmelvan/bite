@@ -1,0 +1,36 @@
+@font-face {
+  font-family: 'Avenir';
+  font-style: normal;
+  font-weight: 400;
+  src: url("./resources/fonts/AvenirNextLTPro-Regular.otf");
+  src: local('Avenir'), local('Avenir'),
+        url("./resources/fonts/AvenirNextLTPro-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: 'Avenir Medium';
+  font-style: normal;
+  font-weight: 500;
+  src: url("./resources/fonts/AvenirNextLTPro-Demi.otf");
+  src: local('Avenir Medium'), local('Avenir Medium'),
+        url("./resources/fonts/AvenirNextLTPro-Demi.otf") format("opentype");
+}
+
+html, body {
+  margin: 0;
+  font-family: "Avenir";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  height: 100%;
+}
+
+#root{
+  width: 100%;
+  height: 100%;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}

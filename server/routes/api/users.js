@@ -61,10 +61,10 @@ router.post('/', auth.optional, (req, res, next) => {
 router.post('/login', auth.optional, (req, res, next) => {
   const { body: { user } } = req;
 
-  if(!user.email) {
+  if(!user.username) {
     return res.status(422).json({
       errors: {
-        email: 'is required',
+        username: 'is required',
       },
     });
   }
@@ -86,10 +86,10 @@ router.post('/login', auth.optional, (req, res, next) => {
       const user = passportUser;
       user.token = passportUser.generateJWT();
 
-      return res.json({ user: user.toAuthJSON() });
+      return res.json(user.toAuthJSON());
     }
 
-    return status(400).info;
+    return res.status(400).json(info);
   })(req, res, next);
 });
 
