@@ -15,9 +15,15 @@ html, body{
   animation: slideIn 1s ease;
 
   @media screen and (max-width: 767px){
-    top: -70px;
     left: -50px;
     animation: slideIn4 1s ease .1s both;
+  }
+}
+
+.plate1-holder.join{
+  @media screen and (max-width: 767px){
+    left: -50px;
+    animation: slideIn6 1s ease .1s both;
   }
 }
 
@@ -39,16 +45,41 @@ html, body{
   }
 }
 
+.plate2-holder.join{
+  @media screen and (max-width: 767px){
+    left: 150px;
+    animation: slideIn5 1s ease .1s both;
+  }
+}
+
 .login{
   width: 100%;
   height: 100%;
 }
 
 .logo-holder{
-  position: relative;
-  width: 100%;
-  text-align: center;
-  margin-bottom: 50px;
+  position: fixed;
+  padding-top: 40px;
+  padding-left: 60px;
+  padding-right: 60px;
+  width: calc(100% - 120px);
+  display: flex;
+  justify-content: space-between;
+
+  .hamburger{
+    display: none;
+
+    @media screen and (max-width: 767px){
+      display: block;
+    }
+  }
+
+  @media screen and (max-width: 767px){
+    justify-content: space-between;
+    width: calc(100% - 60px);
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 }
 
 .login-options{
@@ -70,6 +101,10 @@ html, body{
     max-width: 500px;
     padding-left: 30px;
     padding-right: 30px;
+
+    @media screen and (max-width: 767px){
+      margin-top: 90px;
+    }
 
     .signin{
       width: 100%;
@@ -99,7 +134,7 @@ html, body{
       position: absolute;
       transition: all .3s ease;
     }
-    input[type=text], input[type=password]{
+    input[type=text], input[type=password], input[type=email]{
       width: 100%;
       height: 30px;
       color: #425160;
@@ -115,7 +150,7 @@ html, body{
       outline: none;
     }
 
-    button{
+    & > button{
       width: 100%;
       height: 44px;
       box-shadow: 0 2px 7px 2px rgba(243, 116, 33, 0.4);
@@ -129,9 +164,31 @@ html, body{
       margin-top: 45px;
       transition: all .15s ease;
     }
-    button:hover{
+    & > button:hover{
       background-color: #ff6702;
     }
+  }
+}
+
+.signin-options{
+  margin-top: 50px;
+
+  & > button{
+    width: 50%;
+    height: 44px;
+    border-radius: 34px;
+    border: 1px solid transparent;
+    background: transparent;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .15s ease;
+    color: #8b959e;
+  }
+  & > button.active{
+    border: 1px solid #f37421;
+    color: #f37421;
   }
 }
 
@@ -189,8 +246,8 @@ html, body{
 }
 
 .container .checkmark:after {
-  left: 5px;
-  top: 0px;
+  left: 4px;
+  top: 0.5px;
   width: 3px;
   height: 7px;
   border: solid white;
@@ -248,5 +305,27 @@ html, body{
   100%  {
     transform: rotate(0deg);
     top: -70px;
+  }
+}
+
+@keyframes slideIn6 {
+  0% {
+    transform: rotate(100deg);
+    top: -150px;
+  }
+  100%  {
+    transform: rotate(0deg);
+    top: -120px;
+  }
+}
+
+@keyframes slideIn5 {
+  0% {
+    transform: rotate(60deg);
+    bottom: -250px;
+  }
+  100%  {
+    transform: rotate(0deg);
+    bottom: -200px;
   }
 }

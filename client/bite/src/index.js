@@ -3,13 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import Login from './components/login';
+import Join from './components/join';
 import * as serviceWorker from './serviceWorker';
+import { Router, Route, Link } from 'react-router-dom';
+import history from './history';
 
-if(window.location.pathname == "/"){
-  ReactDOM.render(<App />, document.getElementById('root'));
-} else if(window.location.pathname == "/login"){
-  ReactDOM.render(<Login />, document.getElementById('root'));
-}
+ReactDOM.render(
+  <Router history={history}>
+    <Route path="/" exact component={App} />
+    <Route path="/login" component={Login} />
+    <Route path="/join" component={Join} />
+  </Router>
+  , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

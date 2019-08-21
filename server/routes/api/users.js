@@ -49,9 +49,9 @@ router.post('/', auth.optional, (req, res, next) => {
 
     } else {
       if(user.email == userIn.email){
-        return res.json({error: "The email has already been used"});
+        return res.status(422).json({error: "The email has already been used"});
       } else if(user.username == userIn.username){
-        return res.json({error: "The username already exist"});
+        return res.status(422).json({error: "The username already exist"});
       }
     }
   })
