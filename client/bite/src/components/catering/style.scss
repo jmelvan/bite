@@ -1,0 +1,16 @@
+.container-own{
+  padding-left: 120px;
+  padding-right: 120px;
+}
+.orders{
+
+  &__header{
+    & > h3{
+      font-size: 27px;
+      font-family: 'Avenir Medium';
+      font-weight: 500;
+      transition: all .15s ease;
+      color: #8b959e;
+    }
+  }
+}
