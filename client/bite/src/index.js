@@ -5,19 +5,12 @@ import App from './App';
 import Login from './components/login';
 import Join from './components/join';
 import Catering from './components/catering';
-import DashboardHeader from './components/dashboardHeader';
 import * as serviceWorker from './serviceWorker';
 import { Router, Route, Link } from 'react-router-dom';
 import history from './history';
 
-const exclusionArray = [
-  '/catering',
-  '/client',
-]
-
 ReactDOM.render(
   <Router history={history}>
-    {exclusionArray.indexOf(window.location.pathname) != -1 && <DashboardHeader/>}
     <Route path="/" exact component={App} />
     <Route path="/login" component={Login} />
     <Route path="/join" component={Join} />

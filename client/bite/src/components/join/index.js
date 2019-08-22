@@ -65,6 +65,8 @@ class Login extends React.Component {
         }
       }).then((res) => {
         cookies.set("_sT", res.data.user.token, {path: "/"});
+        cookies.set("_u", res.data.user._id, {path: "/"});
+        cookies.set("_r", res.data.user.role, {path: "/"});
         this.props.history.push("/"+this.state.role);
       }).catch((err) => {
         this.setState({

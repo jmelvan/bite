@@ -25,8 +25,8 @@ class Login extends React.Component {
     }
   }
   
-  componentDidMount(){
-
+  componentWillMount(){
+    if(cookies.get('_sT')) history.push("/"+cookies.get('_r'))
   }
 
   inputFocus(input){
@@ -52,6 +52,9 @@ class Login extends React.Component {
       }
     }).then((res) => {
       cookies.set("_sT", res.data.token, {path: "/"});
+      cookies.set("_u", res.data._id, {path: "/"});
+      cookies.set("_r", res.data.role, {path: "/"});
+      history.push("/"+res.data.role);
     }).catch((err) => {
       if (err.response.data.errors.username){
         this.setState({
