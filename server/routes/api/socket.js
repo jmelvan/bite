@@ -20,6 +20,14 @@ OrdersStream.on('change', (change) => {
 io.on('connection', function(socket){
   socket.on('introduce', (token) => {
     socket.join(jwt.verify(token, "secret").id);
+    Orders.find({catering_id: jwt.verify(token, "secret").id}, {'catering_id': 0, 'renter_id': 0, '__v': 0}, {sort: {'time': 1}}, (err, data) => {
+      io.to(jwt.verify(token, "secret").id).emit('initialize', data);
+    });
+    socket.on('updateStatus', (data) => {
+      Orders.findOneAndUpdate({catering_id: jwt.verify(data.token, "secret").id, _id: data._id}, {status: data.status}, (err, data) => {
+        io.to(jwt.verify(data.token, "secret").id).emit('updateStatusSuccess', data);
+      });
+    })
   });
 });
 

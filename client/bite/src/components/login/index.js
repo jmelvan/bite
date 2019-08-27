@@ -109,7 +109,7 @@ class Login extends React.Component {
         <div className="plate1-holder"></div>
         <div className="plate2-holder"></div>
         <div className="logo-holder">
-          <Logo class="logo login" />
+          <Logo class="logo for-login" />
           <img className="hamburger" src={require("../../resources/hamburger.svg")} />
         </div>
         <div className="form-wrapper">
