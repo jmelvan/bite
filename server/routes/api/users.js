@@ -171,7 +171,7 @@ router.post('/deliverers/add', auth.required, (req, res, next) => {
   })
 });
 
-//POST updaet deliverer - catering only
+//POST update deliverer - catering only
 router.post('/deliverers/update', auth.required, (req, res, next) => {
   const { payload: { id }, body: { user } } = req;
 
@@ -191,7 +191,21 @@ router.post('/deliverers/update', auth.required, (req, res, next) => {
   }
 
   Users.findOneAndUpdate({catering_id: id, _id: user._id}, upd, function(err, deliverer){
-    res.json({menu: deliverer});
+    res.json({deliverer: deliverer});
+  })
+});
+
+//POST delete deliverer - catering only
+router.post('/deliverers/remove/:id', auth.required, (req, res, next) => {
+  const { payload: { id }, body: { user } } = req;
+
+  Users.findOne({_id: id}, function(err, user){
+    if(user.role === "catering"){
+      Users.deleteOne({_id: req.params.id}, function(err){
+        if(err) return res.json({error: err});
+        return res.json({success: "You have successfully removed deliverer from your list"});
+      });
+    }
   })
 });
 

@@ -121,7 +121,39 @@ class Deliverers extends React.Component {
   }
 
   updateDeliverer(){
-    
+    if(this.state.clickedAdd === 0){
+      this.setState({clickedAdd: this.state.clickedAdd+1});
+      var req = this.state.password == "" ? {
+        user: {
+          username: this.state.username,
+          name: this.state.displayName,
+          _id: this.state.editDelivererId
+        }
+      } : {
+        user: {
+          username: this.state.username,
+          name: this.state.displayName,
+          passoword: this.state.password,
+          _id: this.state.editDelivererId
+        }
+      };
+      axios.post("http://on-time.cc:8000/api/users/deliverers/update", req, {headers: {Authorization: "Token "+cookies.get('_sT')}} ).then((res) => {
+        this.stateNormal();
+        this.setState({editDelivererId: undefined, editDeliverer: false});
+        this.fetchDeliverers();
+      });
+    }
+  }
+
+  deleteDeliverer(){
+    if(this.state.clickedAdd === 0){
+      this.setState({clickedAdd: this.state.clickedAdd+1});
+      axios.post("http://on-time.cc:8000/api/users/deliverers/remove/"+this.state.editDelivererId, {}, {headers: {Authorization: "Token "+cookies.get('_sT')}} ).then(() => {
+        this.stateNormal();
+        this.setState({editDelivererId: undefined, editDeliverer: false});
+        this.fetchDeliverers();
+      })
+    }
   }
 
   render(){
