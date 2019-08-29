@@ -1,6 +1,6 @@
 import React from 'react';
 import history from '../../history';
-import { Time, Cutlery, Location, OrderStatus } from '../../resources/icons';
+import { Time, Cutlery, Location, OrderStatus, Add } from '../../resources/icons';
 import GoogleMapReact from 'google-map-react';
 import Geocode from "react-geocode";
 
@@ -27,7 +27,7 @@ class Order extends React.Component {
       aniamteList: false,
       change: false,
       streetName: undefined,
-      confirm: ""
+      confirm: "",
     }
   }
 
@@ -77,7 +77,6 @@ class Order extends React.Component {
     Geocode.fromLatLng(this.props.delivery_location.lat, this.props.delivery_location.lng).then(
       response => {
         const address = response.results[0].formatted_address;
-        console.log(address.substr(0, address.indexOf(',')));
         this.setState({
           streetName: address.substr(0, address.indexOf(','))
         }) 
@@ -117,9 +116,9 @@ class Order extends React.Component {
     return (
       <div className="order">
         <div className="order__minimal">
-          <div className="order-deliverer" onClick={() => {this._handleAnim()}}>
-            <div className="profile-picture" style={{backgroundImage: "url("+require('../../resources/profile.png')+")"}}></div>
-            Jakov
+          <div className="order-deliverer">
+            {this.props.deliverer ? <div className="profile-picture" style={{backgroundImage: "url("+require('../../resources/profile.png')+")"}}></div> : ""}
+            {this.props.deliverer ? this.props.deliverer : <button onClick={() => {this.props.asignDeliverer(this.props._id)}}><Add /> Add deliverer</button>}
           </div>
           <div className="order-time" onClick={() => {this._handleAnim()}}>
             <Time class="order-icons" />
@@ -139,12 +138,12 @@ class Order extends React.Component {
           </div>
           <div className="order-status">
             <div className={"status-badge "+this.props.status+" "+this.state.confirm} 
-                onMouseEnter={() => this.props.status == "pending" ? this.setState({confirm: "confirm"}) : ""}
-                onMouseLeave={() => this.props.status == "pending" ? this.setState({confirm: ""}) : ""}
-                onClick={() => this.props.status == "pending" ? this.props.updateStatus(this.props._id, "confirmed") : ""}
+                onMouseEnter={() => this.props.status == "pending" ? this.setState({confirm: "confirm"}) : this.props.status == "confirmed" ? this.setState({confirm: "ready"}) : ""}
+                onMouseLeave={() => this.props.status == "pending" ? this.setState({confirm: ""}) : this.props.status == "confirmed" ? this.setState({confirm: ""}) : ""}
+                onClick={() => this.props.status == "pending" ? this.props.updateStatus(this.props._id, "confirmed") : this.props.status == "confirmed" ? this.props.updateStatus(this.props._id, "ready") : ""}
             >
               <OrderStatus class={"status-badge-icon "+this.props.status+" "+this.state.confirm} />
-              {this.state.confirm != "" ? "Confirm" : this.Capitalize(this.props.status)}
+              {this.state.confirm == "confirm" ? "Confirm" : this.state.confirm == "ready" ? "Ready" : this.Capitalize(this.props.status)}
             </div>
           </div>
         </div>

@@ -3,8 +3,11 @@ import Cookies from 'universal-cookie';
 import history from '../../history';
 import axios from 'axios';
 import DashboardHeader from '../dashboardHeader';
-import Order from '../order';
+import Orders from '../orders';
+import Menus from '../menus';
+import Deliverers from '../deliverers';
 import openSocket from 'socket.io-client';
+import { Router, Route, Link } from 'react-router-dom';
 import './style.scss';
 
 const cookies = new Cookies();
@@ -15,7 +18,10 @@ class Catering extends React.Component {
     super(props);
 
     this.state = {
-      orders: undefined
+      orders: undefined,
+      deliverers: undefined,
+      asignDeliverer: false,
+      forOrder: undefined
     }
   }
 
@@ -35,15 +41,21 @@ class Catering extends React.Component {
   componentDidMount(){
     socket.on('connect', () => {
       socket.emit('introduce', cookies.get('_sT'));
-      socket.on('initialize', (orders) => {
-        this.setState({orders: orders});
+      socket.on('initialize', (data) => {
+        this.setState({orders: data.orders, deliverers: data.deliverers});
       })
-      socket.on('newOrder', (order) => {
-        console.log(order);
+      socket.on('newOrder', (data) => {
+        this.setState({orders: data.orders, deliverers: data.deliverers});
+      });
+      socket.on('orderUpdate', (data) => {
+        this.setState({orders: data.orders, deliverers: data.deliverers});
       });
       socket.on('updateStatusSuccess', (data) => {
         console.log(data);
-      })
+      });
+      socket.on('updateDelivererSuccess', (data) => {
+        console.log(data);
+      });
     });
   }
 
@@ -51,31 +63,45 @@ class Catering extends React.Component {
     socket.emit('updateStatus', {token: cookies.get('_sT'),  _id: id, status: status});
   }
 
+  asignDeliverer(id){
+    this.setState({
+      asignDeliverer: true,
+      forOrder: id
+    });
+  }
+
+  updateDeliverer(id, name){
+    socket.emit('updateDeliverer', {token: cookies.get('_sT'),  deliverer_id: id, deliverer: name, order: this.state.forOrder});
+    this.setState({asignDeliverer: false});
+  }
+
   render(){
     return(
       <div className="dashboard">
         <DashboardHeader />
-        <div className="orders">
-          <div className="orders__header">
-            <h3>Home</h3>
-          </div>
-          <div className="orders__content">
-            {this.state.orders ? 
-              Object.keys(this.state.orders).map((i, order) => {
-                return <Order key={i} 
-                              food_list={this.state.orders[order].food_list} 
-                              status={this.state.orders[order].status} 
-                              time={this.state.orders[order].time} 
-                              delivery_location={this.state.orders[order].delivery_location}
-                              _id={this.state.orders[order]._id}
+        <Route path="/catering" 
+              exact
+              render={() => {
+                return <Orders orders={this.state.orders} 
+                              asignDelivererState={this.state.asignDeliverer} 
+                              exitAsign={() => {this.setState({asignDeliverer: false})}}
+                              deliverers={this.state.deliverers}
                               updateStatus={(id, status) => {this.updateStatus(id, status)}}
+                              asignDeliverer={(id) => {this.asignDeliverer(id)}}
+                              updateDeliverer={(id, name) => {this.updateDeliverer(id, name)}}
                         />
-              })
-              :
-              ""
-            }
-          </div>
-        </div>
+              }} 
+        />
+        <Route path="/catering/menus"
+              render={() => {
+                return <Menus />
+              }}
+        />
+        <Route path="/catering/deliverers"
+              render={() => {
+                return <Deliverers />
+              }}
+        />
       </div>
     )
   }

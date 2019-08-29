@@ -48,6 +48,16 @@ router.post('/remove/:id', auth.required, (req, res, next) => {
   })
 });
 
+//POST search meal from meal list
+router.post('/search', auth.required, (req, res, next) => {
+  const { payload: { id }, body: { q } } = req;
+
+  Food.find({catering_id: id, name: {$regex: q}}, function(err, meals){
+    res.json({meals: meals});
+  })
+});
+
+//GET catering menus
 router.get('/menus', auth.required, (req, res, next) => {
   const { payload: { id } } = req;
 
@@ -60,6 +70,16 @@ router.get('/menus', auth.required, (req, res, next) => {
   });
 });
 
+//POST update menus from menus list
+router.post('/menus/update', auth.required, (req, res, next) => {
+  const { payload: { id }, body: { menu } } = req;
+
+  Menus.findOneAndUpdate({catering_id: id, _id: menu._id}, {food_list: menu.food_list, name: menu.name, price: menu.price}, function(err, menu){
+    res.json({menu: menu});
+  })
+});
+
+//POST add catering menu
 router.post('/menus/add', auth.required, (req, res, next) => {
   const { payload: { id }, body: { menu } } = req;
 
@@ -81,6 +101,8 @@ router.post('/menus/add', auth.required, (req, res, next) => {
   })
 });
 
+
+//POST remove catering menu
 router.post('/menus/remove/:id', auth.required, (req, res, next) => {
   const { payload: { id }, body: { menu } } = req;
 

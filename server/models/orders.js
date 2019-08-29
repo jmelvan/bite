@@ -11,7 +11,9 @@ const OrdersSchema = new Schema({
   time: Date,
   price: Number,
   token: String,
-  status: String
+  status: String,
+  deliverer: String,
+  deliverer_name: String
 });
 
 OrdersSchema.methods.asignTokenData = function(token){

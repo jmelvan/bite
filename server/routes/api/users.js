@@ -5,6 +5,7 @@ const auth = require('../auth');
 const Users = mongoose.model('Users');
 const UsedTokens = mongoose.model('Used_tokens');
 const Orders = mongoose.model('Orders');
+const crypto = require('crypto');
 
 //POST new user route (optional, everyone has access)
 router.post('/', auth.optional, (req, res, next) => {
@@ -124,6 +125,73 @@ router.get('/orders/:token*?', auth.required, (req, res, next) => {
           res.json({orders: orders});
         })
     }
+  })
+});
+
+//GET deliverers - catering only
+router.get('/deliverers', auth.required, (req, res, next) => {
+  const { payload: { id } } = req;
+
+  Users.findOne({_id: id}, function(err, user){
+    if(user.role === "catering"){
+      Users.find({catering_id: id, role: "deliverer"}, (err, deliverers) => {
+        res.json({deliverers: deliverers});
+      })
+    } else {
+      res.status(422).json({error: "Please stop hacking!! :)"});
+    }
+  });
+});
+
+//POST new deliverer - catering only
+router.post('/deliverers/add', auth.required, (req, res, next) => {
+  const { payload: { id }, body: { user } } = req;
+
+  Users.findOne({$or: [
+    {username: user.username},
+    {name: user.name}
+  ], role: "deliverer"}).then((userIn) => {
+    if(!userIn){
+
+      const finalUser = new Users(user);
+
+      finalUser.setPassword(user.password);
+      finalUser.setCatering_id(id);
+
+      return finalUser.save()
+        .then(() => res.json({ user: finalUser.toAuthJSON() }));
+
+    } else {
+      if(user.name == userIn.name){
+        return res.status(422).json({error: "Display name has already been used"});
+      } else if(user.username == userIn.username){
+        return res.status(422).json({error: "The username already exist"});
+      }
+    }
+  })
+});
+
+//POST updaet deliverer - catering only
+router.post('/deliverers/update', auth.required, (req, res, next) => {
+  const { payload: { id }, body: { user } } = req;
+
+  if(user.password){
+    var salt = crypto.randomBytes(16).toString('hex');
+    var upd = {
+      username: user.username,
+      name: user.name, 
+      salt: salt,
+      hash: crypto.pbkdf2Sync(password, salt, 10000, 512, 'sha512').toString('hex')
+    }
+  } else {
+    var upd = {
+      username: user.username,
+      name: user.name
+    }
+  }
+
+  Users.findOneAndUpdate({catering_id: id, _id: user._id}, upd, function(err, deliverer){
+    res.json({menu: deliverer});
   })
 });
 
