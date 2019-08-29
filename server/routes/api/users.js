@@ -117,11 +117,11 @@ router.get('/orders/:token*?', auth.required, (req, res, next) => {
       });
     } else if(user.role == "client") {
       req.params.token ?
-        UsedTokens.find({renter_id: id, token: req.params.token}, {'_id': 0,'food_list': 1, 'price': 1, 'token': 1, 'catering_id': 1, 'time': 1}, {sort: {'time': -1}}, function(err, orders) {
+        Orders.find({renter_id: id, token: req.params.token}, {'_id': 0,'food_list': 1, 'price': 1, 'token': 1, 'catering_id': 1, 'time': 1, 'status': 1}, {sort: {'time': -1}}, function(err, orders) {
           res.json({orders: orders});
         })
       :
-        UsedTokens.find({renter_id: id}, {'_id': 0,'food_list': 1, 'price': 1, 'token': 1, 'catering_id': 1, 'time': 1}, {sort: {'time': -1}}, function(err, orders) {
+        Orders.find({renter_id: id}, {'_id': 0,'food_list': 1, 'price': 1, 'token': 1, 'catering_id': 1, 'time': 1, 'status': 1}, {sort: {'time': -1}}, function(err, orders) {
           res.json({orders: orders});
         })
     }
