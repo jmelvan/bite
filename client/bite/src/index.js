@@ -5,6 +5,7 @@ import App from './App';
 import Login from './components/login';
 import Join from './components/join';
 import Catering from './components/catering';
+import Client from './components/client';
 import * as serviceWorker from './serviceWorker';
 import { Router, Route, Link } from 'react-router-dom';
 import history from './history';
@@ -15,6 +16,7 @@ ReactDOM.render(
     <Route path="/login" component={Login} />
     <Route path="/join" component={Join} />
     <Route path="/catering" component={Catering} />
+    <Route path="/client" component={Client} />
   </Router>
   , document.getElementById('root'));
 

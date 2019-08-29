@@ -11,7 +11,7 @@ import { Router, Route, Link } from 'react-router-dom';
 import './style.scss';
 
 const cookies = new Cookies();
-const socket = openSocket('http://on-time.cc:3000');
+var socket;
 
 class Catering extends React.Component {
   constructor(props){
@@ -27,7 +27,7 @@ class Catering extends React.Component {
 
   componentWillMount(){
     var token = cookies.get('_sT');
-    if(token == undefined){
+    if(token == undefined || cookies.get('_r') != "catering"){
       history.push('/login');
     } else {
       axios.get('http://on-time.cc:8000/api/users/current', {headers: {Authorization: "Token "+token}}).then().catch((err) => {
@@ -39,13 +39,16 @@ class Catering extends React.Component {
   }
 
   componentDidMount(){
+    socket = openSocket('http://on-time.cc:3000');
     socket.on('connect', () => {
       socket.emit('introduce', cookies.get('_sT'));
       socket.on('initialize', (data) => {
         this.setState({orders: data.orders, deliverers: data.deliverers});
+        this.forceUpdate();
       })
       socket.on('newOrder', (data) => {
         this.setState({orders: data.orders, deliverers: data.deliverers});
+        this.forceUpdate();
       });
       socket.on('orderUpdate', (data) => {
         this.setState({orders: data.orders, deliverers: data.deliverers});
