@@ -37,7 +37,7 @@ router.post('/add', auth.required, (req, res, next) => {
 router.post('/remove/:token', auth.required, (req, res, next) => {
   const { payload: { id }, body: { token } } = req;
 
-  Tokens.deleteOne({token: req.params.token, renter_id: id}, function(err){
+  Tokens.deleteOne({_id: req.params.token, renter_id: id}, function(err){
     if (err) return res.json({error: err});
     return res.json({success: "You have successfully removed one token."});
   })

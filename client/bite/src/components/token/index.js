@@ -27,7 +27,7 @@ class Token extends React.Component {
 
   render(){
     return(
-      <div className="token">
+      <div className="token" onClick={() => {this.props.onClick(this.props.tokenFull)}}>
         <div>
           <h4>{this.props.token}</h4>
           <div><Location class="order-icons" />{this.state.location}</div>
@@ -36,7 +36,7 @@ class Token extends React.Component {
           {this.props.allowed_uses != undefined ? <div><div>Allowed uses:</div><div>{this.props.allowed_uses}x</div></div> : ""}
           {this.props.max_price != undefined ? <div><div>Money amount:</div><div>{this.props.max_price} kn</div></div> : ""}
           {this.props.total_price != undefined ? <div><div>Money spent:</div><div>{this.props.total_price} kn</div></div> : ""}
-          <div><div>Number of uses:</div><div>{this.props.number_of_uses}x</div></div>
+          <div><div>Number of uses:</div><div>{this.props.number_of_uses ? this.props.number_of_uses : "0"}x</div></div>
         </div>
       </div>
     )

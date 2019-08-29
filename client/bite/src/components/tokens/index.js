@@ -24,9 +24,6 @@ class Tokens extends React.Component {
       username: "",
       unTop: 5,
       unFont: 16,
-      password: "",
-      pwTop: 5,
-      pwFont: 16,
       displayName: "",
       emTop: 5,
       clickedAdd: 0,
@@ -55,14 +52,14 @@ class Tokens extends React.Component {
       username: "",
       unTop: 5,
       unFont: 16,
-      password: "",
-      pwTop: 5,
-      pwFont: 16,
       displayName: "",
       emTop: 5,
       clickedAdd: 0,
       mapLoaded: false,
       emFont: 16,
+      lat: undefined,
+      lng: undefined,
+      returnValue: undefined,
       returnValue: undefined
     });
   }
@@ -125,6 +122,85 @@ class Tokens extends React.Component {
     })
   }
 
+  createToken(){
+    if(this.state.clickedAdd === 0){
+      this.setState({clickedAdd: 0});
+      if(this.state.username && !this.state.displayName){
+        var req = {
+          token: {
+            delivery_location: {lat: this.state.lat, lng: this.state.lng},
+            allowed_uses: this.state.username
+          }
+        }
+      } else if(this.state.displayName && !this.state.username){
+        var req = {
+          token: {
+            delivery_location: {lat: this.state.lat, lng: this.state.lng},
+            max_price: this.state.displayName
+          }
+        }
+      } else if(this.state.displayName && this.state.username){
+        var req = {
+          token: {
+            delivery_location: {lat: this.state.lat, lng: this.state.lng},
+            max_price: this.state.displayName,
+            allowed_uses: this.state.username
+          }
+        }
+      }
+      axios.post("http://on-time.cc:8000/api/users/tokens/add", req, {headers: {Authorization: "Token "+cookies.get('_sT')}} ).then(() => {
+        this.stateNormal();
+        this.fetchTokens();
+      })
+    }
+  }
+
+  editToken(token){
+    this.setState({
+      addToken: true,
+      editToken: true,
+      editTokenId: token._id,
+      lat: token.delivery_location.lat,
+      lng: token.delivery_location.lng
+    });
+    if(token.allowed_uses && !token.max_price){
+      this.inputFocus("username");
+      this.setState({username: token.allowed_uses});
+    } else if(!token.allowed_uses && token.max_price){
+      this.inputFocus("email");
+      this.setState({displayName: token.max_price});
+    } else if(token.allowed_uses && token.max_price){
+      this.setState({
+        username: token.allowed_uses,
+        displayName: token.max_price
+      });
+      this.inputFocus("username");
+      this.inputFocus("email");
+    }
+    Geocode.fromLatLng(token.delivery_location.lat, token.delivery_location.lng).then(
+      response => {
+        if(response.results[0].address_components[2]){
+          const address = response.results[0].address_components[1].long_name+", "+response.results[0].address_components[2].long_name+", "+response.results[0].address_components[5].long_name;
+          this.setState({returnValue: address});
+        }
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
+  deleteToken(){
+    if(this.state.clickedAdd === 0){
+      this.setState({clickedAdd: this.state.clickedAdd+1});
+      axios.post("http://on-time.cc:8000/api/users/tokens/remove/"+this.state.editTokenId, {}, {headers: {Authorization: "Token "+cookies.get('_sT')}} ).then(() => {
+        this.stateNormal();
+        this.setState({editTokenId: undefined, editToken: false});
+        this.fetchTokens();
+      })
+    }
+  }
+
   render(){
     return(
       <div className="orders">
@@ -142,6 +218,8 @@ class Tokens extends React.Component {
                         number_of_uses={this.state.tokens[token].number_of_uses}
                         total_price={this.state.tokens[token].total_price}
                         max_price={this.state.tokens[token].max_price}
+                        tokenFull={this.state.tokens[token]}
+                        onClick={(token) => {this.editToken(token)}}
                       />
             })
           : ""
@@ -196,7 +274,7 @@ class Tokens extends React.Component {
                   </GoogleMapReact>
                 </div>
               : ""}
-              {!this.state.editDeliverer ?
+              {!this.state.editToken ?
                 <button type="button" onClick={() => {this.createToken()}}><Add /> Create token</button>
                 :
                 <div className="editingMenu"><div onClick={() => {this.deleteToken()}}>Delete token</div><button type="button" onClick={() => {this.updateToken()}}><Add /> Update token</button></div>
