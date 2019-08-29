@@ -64,9 +64,12 @@ class Catering extends React.Component {
   }
 
   asignDeliverer(id){
-    this.setState({
-      asignDeliverer: true,
-      forOrder: id
+    axios.get('http://on-time.cc:8000/api/users/deliverers', {headers: {Authorization: "Token "+cookies.get('_sT')}}).then((resp) => {
+      this.setState({
+        deliverers: resp.data.deliverers,
+        asignDeliverer: true,
+        forOrder: id
+      });
     });
   }
 

@@ -13,7 +13,7 @@ const OrdersSchema = new Schema({
   token: String,
   status: String,
   deliverer: String,
-  deliverer_name: String
+  deliverer_id: String
 });
 
 OrdersSchema.methods.asignTokenData = function(token){
