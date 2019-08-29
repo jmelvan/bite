@@ -2,6 +2,7 @@ import React from 'react';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import { Time, Cutlery, Location, OrderStatus, Add } from '../../resources/icons';
+import ClientOrder from '../clientOrder';
 import '../catering/style.scss';
 import '../client/style.scss';
 import Geocode from "react-geocode";
@@ -29,22 +30,6 @@ class ClientOrders extends React.Component {
     });
   }
 
-  Capitalize(str){
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-
-  geocode(delivery_location){
-    return Geocode.fromLatLng(delivery_location.lat, delivery_location.lng).then(
-      response => {
-        const address = response.results[0].formatted_address;
-        return address.substr(0, address.indexOf(','));
-      },
-      error => {
-        console.error(error);
-      }
-    );
-  }
-
   render(){
     return(
       <div className="orders">
@@ -54,18 +39,13 @@ class ClientOrders extends React.Component {
         <div className="client-orders__content">
           {this.state.orders ?
             Object.keys(this.state.orders).map((i, order) => {
-              return <div className="client-order">
-                      <div>
-                        <h4>2.8.2019<span className={this.state.orders[order].status}>{this.Capitalize(this.state.orders[order].status)}</span></h4>
-                        <div className="location"><Location /> {this.geocode(this.state.orders[order].delivery_location)}</div>
-                        <ul>
-                          <li><div>Lazagne</div><div>95 kn</div></li>
-                          <li><div>Pizza</div><div>75 kn</div></li>
-                          <li><div>Salad</div><div>25 kn</div></li>
-                        </ul>
-                      </div>
-                      <div className="total-price"><div>Total price:</div><div>200 kn</div></div>
-                    </div>
+              return <ClientOrder 
+                        delivery_location={this.state.orders[order].delivery_location}
+                        status={this.state.orders[order].status}
+                        food_list={this.state.orders[order].food_list}
+                        price={this.state.orders[order].price}
+                        time={this.state.orders[order].time}
+                      />
             })
           : ""
           }

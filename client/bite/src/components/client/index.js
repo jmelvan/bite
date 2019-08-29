@@ -4,6 +4,7 @@ import history from '../../history';
 import axios from 'axios';
 import DashboardHeader from '../dashboardHeader';
 import ClientOrders from '../clientOrders';
+import Tokens from '../tokens';
 import { Router, Route, Link } from 'react-router-dom';
 import './style.scss';
 
@@ -31,10 +32,6 @@ class Client extends React.Component {
     }
   }
 
-  componentDidMount(){
-
-  }
-
   render(){
     return(
       <div className="dashboard">
@@ -43,6 +40,11 @@ class Client extends React.Component {
               exact
               render={() => {
                 return <ClientOrders />
+              }} 
+        />
+        <Route path="/client/tokens" 
+              render={() => {
+                return <Tokens />
               }} 
         />
       </div>

@@ -17,13 +17,13 @@ router.get('/', auth.required, (req, res, next) => {
 router.post('/add', auth.required, (req, res, next) => {
   const { payload: { id }, body: { token } } = req;
 
-  if(!token.valid_start_time || !token.end_time) {
+  /*if(!token.valid_start_time || !token.end_time) {
     return res.status(422).json({
       errors: {
         date: 'is required',
       },
     });
-  }
+  }*/
 
   const finalToken = new Tokens(token);
 
