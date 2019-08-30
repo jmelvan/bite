@@ -14,6 +14,14 @@ class Token extends React.Component {
   }
   
   componentDidMount(){
+    this.setLocation();
+  }
+
+  componentDidUpdate(){
+    this.setLocation();
+  }
+
+  setLocation(){
     Geocode.fromLatLng(this.props.delivery_location.lat, this.props.delivery_location.lng).then(
       response => {
         const address = response.results[0].formatted_address;

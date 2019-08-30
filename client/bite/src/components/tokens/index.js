@@ -116,9 +116,14 @@ class Tokens extends React.Component {
         console.error(error);
       }
     );
-    console.log(place);
+    var address;
+    if(isNaN(parseInt(place.address_components[0].long_name))){
+      address = place.address_components[0].long_name+", "+place.address_components[1].long_name+", "+place.address_components[4].long_name;
+    } else {
+      address = place.address_components[1].long_name+" "+place.address_components[0].long_name+", "+place.address_components[2].long_name+", "+place.address_components[5].long_name;
+    }
     this.setState({
-      returnValue: place.address_components[0].long_name + ", " + place.address_components[1].long_name + ", " + place.address_components[4].long_name
+      returnValue: address
     })
   }
 
@@ -180,7 +185,12 @@ class Tokens extends React.Component {
     Geocode.fromLatLng(token.delivery_location.lat, token.delivery_location.lng).then(
       response => {
         if(response.results[0].address_components[2]){
-          const address = response.results[0].address_components[1].long_name+", "+response.results[0].address_components[2].long_name+", "+response.results[0].address_components[5].long_name;
+          var address;
+          if(isNaN(parseInt(response.results[0].address_components[0].long_name))){
+            address = response.results[0].address_components[0].long_name+", "+response.results[0].address_components[1].long_name+", "+response.results[0].address_components[4].long_name;
+          } else {
+            address = response.results[0].address_components[1].long_name+" "+response.results[0].address_components[0].long_name+", "+response.results[0].address_components[2].long_name+", "+response.results[0].address_components[5].long_name;
+          }
           this.setState({returnValue: address});
         }
       },
