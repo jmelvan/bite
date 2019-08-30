@@ -1,3 +1,34 @@
+.header-mob{
+  height: 70px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 30px;
+  padding-right: 30px;
+
+  &-logo{
+    fill: #f37421;
+  }
+}
+.header-wrapper{
+  display: flex;
+  @media screen and (max-width: 767px){
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    z-index: 99;
+    animation: ITE .35s both;
+  }
+}
+.exit-mob-extended{
+  @media screen and (max-width: 767px){
+    width: 100%;
+    background-color: rgba(0,0,0,.5);
+    z-index: 98;
+  }
+}
 .header{
   width: 143px;
   padding-top: 60px;
@@ -6,6 +37,13 @@
   flex-direction: column;
   justify-content: space-between;
   transition: all .35s ease;
+
+  @media screen and (max-width: 767px){
+    z-index: 99;
+    background-color: #fff;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
 
   .logoI{
     animation: ITE2 .15s ease .1s forwards;
@@ -160,6 +198,56 @@
   }
 }
 
+@media screen and (max-width: 767px){
+  .header{
+    animation: openMenu .35s ease both;
+    width: 255px;
+  
+    .logoI{
+      animation: ITE 0s ease .05s both;
+    }
+    .logoT{
+      animation: ITE 0s ease .075s both;
+    }
+    .logoE{
+      animation: ITE 0s ease .1s both;
+    }
+  
+    .header__top-part{
+      & > ul{
+        margin-top: 30px;
+        & li{
+          padding: 10px 20px;
+          display: inline-flex;
+          width: auto;
+          margin-left: 0px;
+          font-weight: 400;
+          & > label{
+            animation: seconds2 0s ease-in forwards;
+          }
+          & > .li-icons{
+            margin-right: 20px;
+          }
+        }
+      }
+    }
+    .header__bottom-part{
+      & > div{
+        & > label{
+          animation: seconds2 0s ease-in forwards;
+          font-weight: 400;
+        }
+      }
+      & > div:hover{
+        color: #8b959e8d;
+        & > .li-icons{
+          fill: #8b959e8d;
+        }
+      }
+    }
+  }
+}
+
 .header-logo{
   fill: #f37421;
   width: 80px;
@@ -210,4 +298,8 @@
   100%{
     opacity: 0;
   }
+}
+@keyframes openMenu{
+  0%{opacity: 0;}
+  100%{ opacity: 1;}
 }

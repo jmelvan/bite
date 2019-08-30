@@ -3,6 +3,18 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 30px;
   margin-top: 35px;
+
+  @media screen and (max-width: 1350px){
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  
+  @media screen and (max-width: 965px){
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  @media screen and (max-width: 580px){
+    grid-template-columns: 1fr;
+  }
   
   .client-order{
     padding: 20px 30px;
@@ -111,6 +123,9 @@
     font-size: 18px;
     font-weight: 500;
     transition: all .35s ease;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     & .order-icons{
       margin-right: 15px;

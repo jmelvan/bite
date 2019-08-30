@@ -3,6 +3,7 @@ import Cookies from 'universal-cookie';
 import history from '../../history';
 import axios from 'axios';
 import DashboardHeader from '../dashboardHeader';
+import DashboardHeaderMob from '../dashboardHeaderMob';
 import Orders from '../orders';
 import Menus from '../menus';
 import Deliverers from '../deliverers';
@@ -21,7 +22,8 @@ class Catering extends React.Component {
       orders: undefined,
       deliverers: undefined,
       asignDeliverer: false,
-      forOrder: undefined
+      forOrder: undefined,
+      openMenu: false
     }
   }
 
@@ -84,7 +86,8 @@ class Catering extends React.Component {
   render(){
     return(
       <div className="dashboard">
-        <DashboardHeader />
+        <DashboardHeader openMenu={this.state.openMenu} closeMenu={() => {this.setState({openMenu: false})}}/>
+        {window.innerWidth <= 767 ? <DashboardHeaderMob openMenu={() => {this.setState({openMenu: true})}}/> : ""}
         <Route path="/catering" 
               exact
               render={() => {

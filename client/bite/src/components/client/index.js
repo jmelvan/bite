@@ -3,6 +3,7 @@ import Cookies from 'universal-cookie';
 import history from '../../history';
 import axios from 'axios';
 import DashboardHeader from '../dashboardHeader';
+import DashboardHeaderMob from '../dashboardHeaderMob';
 import ClientOrders from '../clientOrders';
 import Tokens from '../tokens';
 import { Router, Route, Link } from 'react-router-dom';
@@ -15,7 +16,7 @@ class Client extends React.Component {
     super(props);
 
     this.state = {
-
+      openMenu: false
     }
   }
 
@@ -35,7 +36,8 @@ class Client extends React.Component {
   render(){
     return(
       <div className="dashboard">
-        <DashboardHeader />
+        <DashboardHeader openMenu={this.state.openMenu} closeMenu={() => {this.setState({openMenu: false})}}/>
+        {window.innerWidth <= 767 ? <DashboardHeaderMob openMenu={() => {this.setState({openMenu: true})}}/> : ""}
         <Route path="/client" 
               exact
               render={() => {

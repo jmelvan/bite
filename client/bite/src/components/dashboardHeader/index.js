@@ -31,28 +31,31 @@ class DashboardHeader extends React.Component {
 
   render(){
     return(
-      <div className="header">
-        <div className="header__top-part">
-          <Logo class="header-logo" classI={["logoI "+ this.state.logoITE]} classT={["logoT "+ this.state.logoITE]} classE={["logoE "+ this.state.logoITE]} />
-          <Route path="/catering" render={() => {
-            return <ul>
-                      <NavLink exact={true} to="/catering"><li className={window.location.pathname == "/catering" ? "active" : ""}><Home class="li-icons"/><label>Home</label></li></NavLink>
-                      <NavLink to="/catering/menus"><li><Menus class="li-icons" /><label>Menus</label></li></NavLink>
-                      <NavLink to="/catering/deliverers"><li><Deliverers class="li-icons" /><label>Deliverers</label></li></NavLink>
-                      <li><div className="profile-picture" style={{backgroundImage: "url("+require('../../resources/profile.png')+")"}}></div><label>Profile</label></li>
-                    </ul>
-          }} />
-          <Route path="/client" render={() => {
-            return <ul>
-                      <NavLink exact={true} to="/client"><li className={window.location.pathname == "/catering" ? "active" : ""}><Home class="li-icons"/><label>Home</label></li></NavLink>
-                      <NavLink to="/client/tokens"><li><Menus class="li-icons" /><label>Tokens</label></li></NavLink>
-                      <li><div className="profile-picture" style={{backgroundImage: "url("+require('../../resources/profile.png')+")"}}></div><label>Profile</label></li>
-                    </ul>
-          }} />
+      <div className="header-wrapper" style={{display: window.innerWidth <= 767 ? this.props.openMenu ? "flex" : "none" : ""}}>
+        <div className="header">
+          <div className="header__top-part">
+            <Logo class="header-logo" classI={["logoI "+ this.state.logoITE]} classT={["logoT "+ this.state.logoITE]} classE={["logoE "+ this.state.logoITE]} />
+            <Route path="/catering" render={() => {
+              return <ul>
+                        <NavLink exact={true} to="/catering"><li className={window.location.pathname == "/catering" ? "active" : ""}><Home class="li-icons"/><label>Home</label></li></NavLink>
+                        <NavLink to="/catering/menus"><li><Menus class="li-icons" /><label>Menus</label></li></NavLink>
+                        <NavLink to="/catering/deliverers"><li><Deliverers class="li-icons" /><label>Deliverers</label></li></NavLink>
+                        <li><div className="profile-picture" style={{backgroundImage: "url("+require('../../resources/profile.png')+")"}}></div><label>Profile</label></li>
+                      </ul>
+            }} />
+            <Route path="/client" render={() => {
+              return <ul>
+                        <NavLink exact={true} to="/client"><li className={window.location.pathname == "/catering" ? "active" : ""}><Home class="li-icons"/><label>Home</label></li></NavLink>
+                        <NavLink to="/client/tokens"><li><Menus class="li-icons" /><label>Tokens</label></li></NavLink>
+                        <li><div className="profile-picture" style={{backgroundImage: "url("+require('../../resources/profile.png')+")"}}></div><label>Profile</label></li>
+                      </ul>
+            }} />
+          </div>
+          <div className="header__bottom-part">
+            <div onClick={() => {this.logout()}}><Logout class="li-icons" /><label>Logout</label></div>
+          </div>
         </div>
-        <div className="header__bottom-part">
-          <div onClick={() => {this.logout()}}><Logout class="li-icons" /><label>Logout</label></div>
-        </div>
+        <div className="exit-mob-extended" onClick={() => {this.props.closeMenu()}}></div>
       </div>
     )
   }

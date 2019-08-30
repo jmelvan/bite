@@ -124,19 +124,19 @@ class Order extends React.Component {
             <Time class="order-icons" />
             {this.renderTime(this.props.time)}
           </div>
-          <div className="order-food" ref={this.food} onClick={() => {this._handleAnim()}}>
+          <div className="order-food hide-900" ref={this.food} onClick={() => {this._handleAnim()}}>
             <div style={this.state.change ? {left: this.state.left*2-1, top: this.state.top, width: this.state.left > 100 ? this.state.left+2 : "100", opacity: this.state.opacity, position: "absolute", maxWidth: "unset"} : {}}>
               <Cutlery class="order-icons" />
               {this.mealInsight(this.props.food_list)}
             </div>
           </div>
-          <div className="order-location" onClick={() => {this._handleAnim()}}>
+          <div className="order-location hide-1100" onClick={() => {this._handleAnim()}}>
             <div style={this.state.change ? {right: this.state.left, top: this.state.top, width: this.state.left > 100 ? this.state.left : "100", opacity: this.state.opacity, position: "absolute"} : {}}>
               <Location class="order-icons" />
               <span>{this.state.streetName}</span>
             </div>
           </div>
-          <div className="order-status">
+          <div className="order-status hide-600">
             <div className={"status-badge "+this.props.status+" "+this.state.confirm} 
                 onMouseEnter={() => this.props.status == "pending" ? this.setState({confirm: "confirm"}) : this.props.status == "confirmed" ? this.setState({confirm: "ready"}) : ""}
                 onMouseLeave={() => this.props.status == "pending" ? this.setState({confirm: ""}) : this.props.status == "confirmed" ? this.setState({confirm: ""}) : ""}
