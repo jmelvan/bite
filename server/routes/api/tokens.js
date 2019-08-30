@@ -43,6 +43,33 @@ router.post('/remove/:token', auth.required, (req, res, next) => {
   })
 });
 
+//POST update deliverer - catering only
+router.post('/update', auth.required, (req, res, next) => {
+  const { payload: { id }, body: { token } } = req;
+
+  if(token.allowed_uses && !token.max_price){
+    var upd = {
+      allowed_uses: token.allowed_uses,
+      delivery_location: token.delivery_location
+    }
+  } else if(!token.allowed_uses && token.max_price){
+    var upd = {
+      max_price: token.max_price,
+      delivery_location: token.delivery_location
+    }
+  } else if(token.allowed_uses && token.max_price){
+    var upd = {
+      allowed_uses: token.allowed_uses,
+      max_price: token.max_price,
+      delivery_location: token.delivery_location
+    }
+  }
+    
+  Tokens.findOneAndUpdate({catering_id: id, _id: token._id}, upd, function(err, token){
+    res.json({token: token});
+  })
+});
+
 //Fetch asign functions
 require('./asing');
 

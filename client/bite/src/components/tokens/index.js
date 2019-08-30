@@ -201,6 +201,43 @@ class Tokens extends React.Component {
     }
   }
 
+  updateToken(){
+    if(this.state.clickedAdd === 0){
+      this.setState({clickedAdd: this.state.clickedAdd+1});
+      if(this.state.username && !this.state.displayName){
+        var req = {
+          token: {
+            _id: this.state.editTokenId,
+            allowed_uses: this.state.username,
+            delivery_location: {lat: this.state.lat, lng: this.state.lng}
+          }
+        }
+      } else if(!this.state.username && this.state.displayName){
+        var req = {
+          token: {
+            _id: this.state.editTokenId,
+            max_price: this.state.displayName,
+            delivery_location: {lat: this.state.lat, lng: this.state.lng}
+          }
+        }
+      } else if(this.state.username && this.state.displayName){
+        var req = {
+          token: {
+            _id: this.state.editTokenId,
+            max_price: this.state.displayName,
+            allowed_uses: this.state.username,
+            delivery_location: {lat: this.state.lat, lng: this.state.lng}
+          }
+        }
+      }
+      axios.post("http://on-time.cc:8000/api/users/tokens/update", req, {headers: {Authorization: "Token "+cookies.get('_sT')}} ).then((res) => {
+        this.stateNormal();
+        this.setState({editTokenId: undefined, editToken: false});
+        this.fetchTokens();
+      });
+    }
+  }
+
   render(){
     return(
       <div className="orders">
