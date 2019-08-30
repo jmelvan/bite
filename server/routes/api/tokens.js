@@ -43,7 +43,7 @@ router.post('/remove/:token', auth.required, (req, res, next) => {
   })
 });
 
-//POST update deliverer - catering only
+//POST update token - client only
 router.post('/update', auth.required, (req, res, next) => {
   const { payload: { id }, body: { token } } = req;
 
@@ -65,7 +65,7 @@ router.post('/update', auth.required, (req, res, next) => {
     }
   }
     
-  Tokens.findOneAndUpdate({catering_id: id, _id: token._id}, upd, function(err, token){
+  Tokens.findOneAndUpdate({renter_id: id, _id: token._id}, upd, function(err, token){
     res.json({token: token});
   })
 });
