@@ -41,7 +41,7 @@ class Catering extends React.Component {
   }
 
   componentDidMount(){
-    socket = openSocket('http://on-time.cc:3000');
+    socket = openSocket('http://on-time.cc:3001');
     socket.on('connect', () => {
       socket.emit('introduce', cookies.get('_sT'));
       socket.on('initialize', (data) => {

@@ -7,7 +7,7 @@ import Join from './components/join';
 import Catering from './components/catering';
 import Client from './components/client';
 import * as serviceWorker from './serviceWorker';
-import { Router, Route, Link } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 import history from './history';
 
 ReactDOM.render(
