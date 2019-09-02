@@ -1,14 +1,29 @@
 import React from 'react';
+import axios from 'axios';
 import Header from './components/header';
+import Cookies from 'universal-cookie';
 import './style.scss';
+
+const cookies = new Cookies();
 
 class App extends React.Component {
   constructor(props){
     super(props);
     
     this.state = {
-      isLogged: false
+      isLogged: false,
+      menus: undefined
     }
+  }
+
+  componentDidMount(){
+    if(cookies.get("_T") != undefined){
+      this.setState({isLogged: true})
+    }
+    axios.get('http://on-time.cc:8000/api/users/food/menus-all').then((resp) => {
+      this.setState({menus: resp.data.menus});
+      console.log(resp.data.menus);
+    });
   }
 
   login(){
@@ -23,6 +38,7 @@ class App extends React.Component {
       <div className="App">
         <Header onLogin={() => {this.login()}} />
         <div className="menus-list">
+
           <div className="menu">
             <div>
               <h4>Pizza menu</h4>

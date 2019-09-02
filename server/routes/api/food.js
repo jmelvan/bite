@@ -70,6 +70,13 @@ router.get('/menus', auth.required, (req, res, next) => {
   });
 });
 
+//GET all menus
+router.get('/menus-all', auth.optional, (req, res, next) => {
+  Menus.find({}, {'__v': 0}, function(err, menu){
+    res.json({menus: menu});
+  });
+});
+
 //POST update menus from menus list
 router.post('/menus/update', auth.required, (req, res, next) => {
   const { payload: { id }, body: { menu } } = req;

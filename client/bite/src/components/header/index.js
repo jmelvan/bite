@@ -3,6 +3,8 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { Logo } from '../../resources/icons';
 
+const cookies = new Cookies();
+
 class Header extends React.Component {
   constructor(props){
     super(props);
@@ -13,9 +15,9 @@ class Header extends React.Component {
   }
 
   checkToken(){
-    console.log("http://on-time.cc:8000/api/users/tokens/login/"+this.state.token);
     axios.post("http://on-time.cc:8000/api/users/tokens/login/"+this.state.token, {} ).then((res) => {
-      console.log(res);
+      cookies.set("_T", res.data.token);
+      this.props.onLogin();
     })
   }
 

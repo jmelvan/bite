@@ -43,8 +43,8 @@ router.post('/remove/:token', auth.required, (req, res, next) => {
   })
 });
 
+//POST - login with token
 router.post('/login/:token', auth.optional, (req, res, next) => {
-  
   Tokens.findOne({token: req.params.token}, function(err, token){
     return res.json({token: token});
   })
