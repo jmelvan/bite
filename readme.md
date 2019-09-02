@@ -1,3 +1,3 @@
-#Bite
+# Bite
 
-##Summercamp 2019 purpose
+## Summercamp 2019 purpose
