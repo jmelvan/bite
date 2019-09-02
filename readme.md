@@ -42,11 +42,11 @@ Login data for **Client**:
 ### How to use app
 
 Firstly, you have to login to client dashboard to create new token. After login navigate to **Tokens** section using menu on the left side.
-There are already supposed to be 2 created token so you can use any of them.
+There are already supposed to be 2 created tokens so you can use any of them.
 
-Tokens are used to order food from [main page](http://on-time.cc:3000). Enter token on main page at right side of navbar.
+Tokens are used to order food from [main page](http://on-time.cc:3000). Enter token on the main page at right side of navbar. After you successfully enter token, you should be able to make orders (check order buttons at the bottom of listed menus).
 
-After you successfully enter token, you should be able to make orders (check order buttons at the bottom of menus).
+After successfully ordering, you would get server response as alert to know exact status of your token. Created order would show up inside **Catering dashboard**. There you can manage order status (pending, confirmed, ready). Once the order is delivered, deliverer would check the order inside his app and order status would change to **delivered**
 
 ### Database structure and variables
 ```
