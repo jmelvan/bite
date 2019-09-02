@@ -13,7 +13,10 @@ class Header extends React.Component {
   }
 
   checkToken(){
-    
+    console.log("http://on-time.cc:8000/api/users/tokens/login/"+this.state.token);
+    axios.post("http://on-time.cc:8000/api/users/tokens/login/"+this.state.token, {} ).then((res) => {
+      console.log(res);
+    })
   }
 
   render() {
