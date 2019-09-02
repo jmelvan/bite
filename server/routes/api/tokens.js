@@ -82,14 +82,14 @@ require('./asing');
 
 //POST - Order food - Add order to used tokens after using token and increment number of uses for specific token
 router.post('/use/:token', auth.optional, (req, res, next) => {
-  const { payload: { id }, body: { food } } = req;
+  const { body: { food } } = req;
   var forsignature = "", secret = "mieY91IQCTkPWHugLv4ZlZORyT1GtsDF";
   food.food_list.map((meal) => {
     forsignature += meal.name + meal.price;
   });
   const signature = crypto.pbkdf2Sync(forsignature, secret, 500, 512, 'sha512').toString('hex');
   if(signature === food.signature){
-    Tokens.findOneAndUpdate({token: req.params.token, renter_id: id}, {
+    Tokens.findOneAndUpdate({token: req.params.token}, {
       $inc: {number_of_uses: 1} 
     }, function(err, token){
       if (err) {
@@ -109,7 +109,7 @@ router.post('/use/:token', auth.optional, (req, res, next) => {
             usedOne.totalPrice(food.food_list).then((spent_now) => {
               var total_new = (!token.total_price ? 0 : token.total_price) + spent_now;
               if(total_new <= token.max_price){
-                Tokens.update({token: req.params.token, renter_id: id}, {total_price: total_new}, function(err){
+                Tokens.update({token: req.params.token}, {total_price: total_new}, function(err){
                   usedOne.save().then(() => {
                     makeOrder(food, token).then(() => {
                       return !token.allowed_uses ?
