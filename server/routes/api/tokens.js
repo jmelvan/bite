@@ -81,7 +81,7 @@ router.post('/update', auth.required, (req, res, next) => {
 require('./asing');
 
 //POST - Order food - Add order to used tokens after using token and increment number of uses for specific token
-router.post('/use/:token', auth.optional, (req, res, next) => {
+router.post('/use/:token', (req, res, next) => {
   const { body: { food } } = req;
   var forsignature = "", secret = "mieY91IQCTkPWHugLv4ZlZORyT1GtsDF";
   food.food_list.map((meal) => {
