@@ -29,6 +29,13 @@ To test app please use the following [link](http://on-time.cc:3000).
 
 To enter dashboards click [here](http://on-time.cc:3000/login).
 
+Login data:
+  - for Catering
+  Username:
+  > melvan
+  Password:
+  > test123
+
 ### Database structure and variables
 ```
 {
