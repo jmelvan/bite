@@ -26,11 +26,15 @@ Client app is running on port **:3000** while server is splited on ports **:8000
 ### Deployed app
 
 To test app please use the following [link](http://on-time.cc:3000).
-
 To enter dashboards click [here](http://on-time.cc:3000/login).
 
 Login data for Catering:
 > melvan
+
+> test123
+
+Login data for Client:
+> melvan2
 
 > test123
 
