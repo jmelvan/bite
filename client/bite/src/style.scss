@@ -35,6 +35,17 @@
       color: rgba(0,0,0,0.7);
     }
   }
+  button.token-logout{
+    height: 32px;
+    outline: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid #fff7f2;
+    background-color: #fff7f2;
+    border-radius: 10px;
+    cursor: pointer;
+    color: rgba(0,0,0,0.7);
+  }
 }
 
 .menus-list{
@@ -42,7 +53,7 @@
   display: grid;
   margin-top: 60px;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 15px;
+  grid-gap: 30px;
   
   .menu{
     padding: 20px 30px;

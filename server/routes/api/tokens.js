@@ -87,7 +87,7 @@ router.post('/use/:token', auth.required, (req, res, next) => {
   food.food_list.map((meal) => {
     forsignature += meal.name + meal.price;
   });
-  const signature = crypto.pbkdf2Sync(forsignature, secret, 10000, 512, 'sha512').toString('hex');
+  const signature = crypto.pbkdf2Sync(forsignature, secret, 500, 512, 'sha512').toString('hex');
   if(signature === food.signature){
     Tokens.findOneAndUpdate({token: req.params.token, renter_id: id}, {
       $inc: {number_of_uses: 1} 

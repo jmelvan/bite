@@ -21,17 +21,26 @@ class Header extends React.Component {
     })
   }
 
+  logout(){
+    cookies.remove("_T");
+    this.props.onLogout();
+  }
+
   render() {
+    const { isLogged } = this.props;
+
     return (
       <div className="main-header">
         <Logo class="logo" />
-        <div className="token-handle">
-          <input type="text" 
-            className="token-input" 
-            onChange={(e) => {this.setState({token: e.target.value})}}
-            placeholder="Token"/>
-          <button onClick={() => {this.checkToken()}}>Submit</button>
-        </div>
+        {isLogged ? <button className="token-logout" onClick={() => this.logout()}>Token logout</button> :
+          <div className="token-handle">
+            <input type="text" 
+              className="token-input" 
+              onChange={(e) => {this.setState({token: e.target.value})}}
+              placeholder="Token"/>
+            <button onClick={() => {this.checkToken()}}>Submit</button>
+          </div>
+        }
       </div>
     )
   }
