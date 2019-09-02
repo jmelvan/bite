@@ -46,7 +46,13 @@ There are already supposed to be 2 created tokens so you can use any of them.
 
 Tokens are used to order food from [main page](http://on-time.cc:3000). Enter token on the main page at right side of navbar. After you successfully enter token, you should be able to make orders (check order buttons at the bottom of listed menus).
 
-After successfully ordering, you would get server response as alert to know exact status of your token. Created order would show up inside **Catering dashboard**. There you can manage order status (pending, confirmed, ready). Once the order is delivered, deliverer would check the order inside his app and order status would change to **delivered**
+After successfully ordering, you would get server response as alert to know exact status of your token. Created order would show up inside **Catering dashboard**. Inside catering dashboard you can manage order status (pending, confirmed, ready). 
+
+Once the order is delivered, deliverer would check the order inside his app and order status would change to **delivered** (feature not available yet).
+
+Upgrades/Ideas:
+  - After logging in using token on main page, show **Order button** only if token is not used or food menu price is not higher than token allowes. 
+  - After deliverer gets his orders to deliver, alorithm should calculate fastest and simplest drive route using google api and create navigation for deliverer. *(know how, but no enough time to make this)* 
 
 ### Database structure and variables
 ```
