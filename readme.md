@@ -50,9 +50,9 @@ After successfully ordering, you would get server response as alert to know exac
 
 Once the order is delivered, deliverer would check the order inside his app and order status would change to **delivered** (feature not available yet).
 
-Upgrades/Ideas:
+### Upgrades/Ideas:
   - After logging in using token on main page, show **Order button** only if token is not used or food menu price is not higher than token allowes. 
-  - After deliverer gets his orders to deliver, alorithm should calculate fastest and simplest drive route using google api and create navigation for deliverer. *(know how, but no enough time to make this)* 
+  - After deliverer gets his orders to deliver, alorithm should calculate fastest and simplest drive route using google api and create navigation for deliverer. *(know how, but don't have enough time to make this)* 
 
 ### Database structure and variables
 ```
