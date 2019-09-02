@@ -29,15 +29,24 @@ To test app please use the following [link](http://on-time.cc:3000).
 
 To enter dashboards click [here](http://on-time.cc:3000/login).
 
-Login data _for_ **Catering**:
+Login data for **Catering**:
 > melvan
 
 > test123
 
-Login data _for_ **Client**:
+Login data for **Client**:
 > melvan2
 
 > test123
+
+### How to use app
+
+Firstly, you have to login to client dashboard to create new token. After login navigate to **Tokens** section using menu on the left side.
+There are already supposed to be 2 created token so you can use any of them.
+
+Tokens are used to order food from [main page](http://on-time.cc:3000). Enter token on main page at right side of navbar.
+
+After you successfully enter token, you should be able to make orders (check order buttons at the bottom of menus).
 
 ### Database structure and variables
 ```
