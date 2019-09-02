@@ -52,6 +52,34 @@ Once the order is delivered, deliverer would check the order inside his app and 
 
 For any questions about app features and usages feel free to contact me: [+385 98 851 276]()
 
+### Hint
+
+When you're createing menu and adding food, not all food is available because I had no time to create function for **Catering** to create food like creating menus. 
+
+You can test adding food to menus using following list:
+- Pizza
+- Salad
+- Lazagne
+- Omelette
+- Bacon
+- Waffle
+
+Adding food is available on server using api, but client side is not provided yet.
+If you want to try, please use following request:
+> POST http://on-time.cc:8000/api/users/food/add
+```
+{
+	"meal": {
+		"name": "Pizza",
+		"price": 75,
+		"type": "hot meal",
+		"calories": 530
+	}
+}
+```
+Meal would be asigned to catering agency currently logged in using **jwt**. Meaning, without proper jsonwebtoken, you would not be able to add food. Just copy *jwt* from cookies and paste it to **postman** headers as **Authorization** value. Example:
+> "Authorization": "Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Impha292bWVsdmFuQGdtYWlsLmNvbSIsImlkIjoiNWQ1NmIxMDdmNzE0MjIyZTdjZjA1M2EwIiwiZXhwIjoxNTcyNjE5ODM0LCJpYXQiOjE1Njc0MzU4MzR9.S6rs6dskON0xpoaKsQTvTLTG711bfT2WA_kcEGcf5BQ"
+
 ### Upgrades/Ideas:
   - After logging in using token on main page, show **Order button** only if token is not used or food menu price is not higher than token allowes. 
   - After deliverer gets his orders to deliver, alorithm should calculate fastest and simplest drive route using google api and create navigation for deliverer. *(know how, but don't have enough time to make this + must be native app to allow location tracking)* 
