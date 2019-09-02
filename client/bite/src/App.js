@@ -36,6 +36,7 @@ class App extends React.Component {
       food: {
         catering_id: menu.catering_id,
         food_list: menu.food_list,
+        price: menu.price,
         signature: pbkdf2.pbkdf2Sync(forsignature, "mieY91IQCTkPWHugLv4ZlZORyT1GtsDF", 500, 512, 'sha512').toString("HEX")
       }
     }

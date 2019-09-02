@@ -77,10 +77,14 @@ class Menus extends React.Component {
   }
 
   searchMeals(val){
-    this.setState({listItem: val, search: true});
-    axios.post("http://on-time.cc:8000/api/users/food/search", {q: val}, {headers: {Authorization: "Token "+cookies.get('_sT')}} ).then((res) => {
+    this.setState({listItem: Capitalize(val), search: true});
+    axios.post("http://on-time.cc:8000/api/users/food/search", {q: Capitalize(val)}, {headers: {Authorization: "Token "+cookies.get('_sT')}} ).then((res) => {
       this.setState({searchList: res.data.meals});
     })
+  }
+
+  Capitalize(str){
+    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
   addMeal(meal){
