@@ -45,8 +45,15 @@ class DashboardHeader extends React.Component {
             }} />
             <Route path="/client" render={() => {
               return <ul>
-                        <NavLink exact={true} to="/client"><li className={window.location.pathname == "/catering" ? "active" : ""}><Home class="li-icons"/><label>Home</label></li></NavLink>
+                        <NavLink exact={true} to="/client"><li className={window.location.pathname == "/client" ? "active" : ""}><Home class="li-icons"/><label>Home</label></li></NavLink>
                         <NavLink to="/client/tokens"><li><Menus class="li-icons" /><label>Tokens</label></li></NavLink>
+                        <li><div className="profile-picture" style={{backgroundImage: "url("+require('../../resources/profile.png')+")"}}></div><label>Profile</label></li>
+                      </ul>
+            }} />
+            <Route path="/deliverer" render={() => {
+              return <ul>
+                        <NavLink exact={true} to="/deliverer"><li className={window.location.pathname == "/deliverer" ? "active" : ""}><Home class="li-icons"/><label>Orders</label></li></NavLink>
+                        <NavLink to="/deliverer/navigation"><li><Menus class="li-icons" /><label>Navigation</label></li></NavLink>
                         <li><div className="profile-picture" style={{backgroundImage: "url("+require('../../resources/profile.png')+")"}}></div><label>Profile</label></li>
                       </ul>
             }} />

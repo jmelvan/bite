@@ -6,6 +6,7 @@ import Login from './components/login';
 import Join from './components/join';
 import Catering from './components/catering';
 import Client from './components/client';
+import Deliverer from './components/deliverer';
 import * as serviceWorker from './serviceWorker';
 import { Router, Route } from 'react-router-dom';
 import history from './history';
@@ -17,6 +18,7 @@ ReactDOM.render(
     <Route path="/join" component={Join} />
     <Route path="/catering" component={Catering} />
     <Route path="/client" component={Client} />
+    <Route path="/deliverer" component={Deliverer} />
   </Router>
   , document.getElementById('root'));
 
