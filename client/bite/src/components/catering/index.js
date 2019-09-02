@@ -54,6 +54,7 @@ class Catering extends React.Component {
       });
       socket.on('orderUpdate', (data) => {
         this.setState({orders: data.orders, deliverers: data.deliverers});
+        console.log("debugging");
       });
       socket.on('updateStatusSuccess', (data) => {
         console.log(data);

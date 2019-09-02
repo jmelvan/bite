@@ -1,0 +1,104 @@
+.main-header{
+  height: 85px;
+  background-color: #f37421;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 120px;
+
+  .logo{
+    fill: #fff;
+  }
+
+  .token-handle{
+    .token-input{
+      width: 100px;
+      height: 30px;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+      border: 1px solid #8b959e;
+      outline: none;
+      padding-left: 10px;
+      color: #8b959e;
+    }
+    button{
+      height: 32px;
+      outline: none;
+      padding-left: 10px;
+      padding-right: 10px;
+      border: 1px solid #fff7f2;
+      background-color: #fff7f2;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      cursor: pointer;
+      color: rgba(0,0,0,0.7);
+    }
+  }
+}
+
+.menus-list{
+  padding: 0 120px;
+  display: grid;
+  margin-top: 60px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 15px;
+  
+  .menu{
+    padding: 20px 30px;
+    border-radius: 10px;
+    background-color: #fff7f2;
+
+    h4{
+      font-size: 20px;
+      font-family: 'Avenir Medium';
+      font-weight: 500;
+      transition: all .15s ease;
+      color: #f37421;
+      margin: 0;
+      margin-bottom: 20px;
+    }
+
+    ul{
+      margin: 0;
+      padding: 0;
+
+      li{
+        color: #8b959e;
+        margin-bottom: 5px;
+        animation: show .35s ease 0s both;
+        opacity: 0;
+        color: #8b959e;
+        font-size: 18px;
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+    .total-price{
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid #8b959e;
+      margin-top: 15px;
+      padding-top: 10px;
+      color: #8b959e;
+      font-size: 18px;
+    }
+    button{
+      border: none;
+      border-radius: 21px;
+      background-color: #f37421;
+      padding: 10px 20px;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      outline: none;
+      width: 100%;
+      margin-top: 20px;
+    }
+    p{
+      margin-bottom: 0;
+      color: #f37421;
+    }
+  }
+}
